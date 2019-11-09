@@ -18,9 +18,17 @@ public interface AnyConfig {
 
     String getString(Property key);
 
+    boolean hasProperty(Property key);
+
     void load();
 
     AnyConfig getConfig(String name);
+
+    default AnyConfig getConfig(Property property) {
+        return getConfig(property.getName());
+    }
+
+    AnyConfig withFallback(AnyConfig fallback);
 
     default List<String> getList(Property name) {
         String val = getString(name);
